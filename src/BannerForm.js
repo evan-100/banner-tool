@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { SketchPicker } from "react-color";
 import CopyToClipboard from "react-copy-to-clipboard";
 
+
 const BannerForm = () => {
   const [formData, setFormData] = useState({
     imageUrl: "",
@@ -9,6 +10,14 @@ const BannerForm = () => {
     fontSize: "",
     text: "",
   });
+
+  const [previewCode, setPreviewCode] = useState("");
+
+  const generatePreviewCode = () => {
+    const { imageUrl, fontColor, fontSize, text } = formData;
+    const code = `<div class="preview" style="background-image: url(${imageUrl}); background-size: cover; background-position: center center; height: 300px; display: flex; justify-content: center; align-items: center;"><h1 style="color: ${fontColor}; font-size: ${fontSize}px;">${text}</h1></div>`;
+    setPreviewCode(code);
+  };  
 
   const [codeSnippet, setCodeSnippet] = useState("");
 
@@ -22,11 +31,13 @@ const BannerForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    generatePreviewCode();
     const { imageUrl, fontColor, fontSize, text } = formData;
     setCodeSnippet(
       `<div style="background-image: url(${imageUrl}); background-size: cover; background-position: center center; height: 300px; display: flex; justify-content: center; align-items: center;"><h1 style="color: ${fontColor}; font-size: ${fontSize}px;">${text}</h1></div>`
     );
   };
+  
 
   return (
     <div>
@@ -78,9 +89,14 @@ const BannerForm = () => {
 
       <br />
       {codeSnippet && (
-  <div className="container">
+        <div className="row">
+  <div className="col-md-6">
+    <h4>Preview:</h4>
+    <div dangerouslySetInnerHTML={{ __html: previewCode }}></div>
+  </div>
+  <div className="col-md-6">
+    <h4>Code Snippet:</h4>
     <div className="form-group">
-      <label htmlFor="codeSnippet">Code Snippet:</label>
       <textarea
         className="form-control"
         id="codeSnippet"
@@ -94,6 +110,8 @@ const BannerForm = () => {
       </button>
     </CopyToClipboard>
   </div>
+</div>
+
 )}
 
     </div>

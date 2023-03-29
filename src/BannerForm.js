@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { SketchPicker,TwitterPicker } from "react-color";
+import { TwitterPicker } from "react-color";
 import CopyToClipboard from "react-copy-to-clipboard";
 
 const BannerForm = () => {

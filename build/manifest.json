@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Banner Tool",
+  "name": "Banner Tool App",
   "icons": [
     {
       "src": "favicon.ico",

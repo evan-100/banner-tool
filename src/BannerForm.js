@@ -18,7 +18,7 @@ const BannerForm = () => {
     box1text: "Tune in to instructor led workshops. If you can't make it live, check the recordings!",
     box2img: "fa-book",
     box2headline: "Winners circle",
-    box2text: "Achievements and leaderboard",
+    box2text: "Achievements and leaderboard. See who's at the top of the leaderboard.",
   });
 
   const [previewCode, setPreviewCode] = useState("");
@@ -32,40 +32,146 @@ const BannerForm = () => {
 
   const generatePreviewCode = () => {
     const { imageUrl, fontColor, fontColor2, fontColor3, fontSize, fontSize2, text, text2,  box1img, box1headline, box1text, box2img, box2headline, box2text, alignment} = formData;
-    const code = `<link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;700&display=swap" rel="stylesheet"><div class="banner" style="background-image: url(${imageUrl}); background-size: cover; background-position: center center; height: 400px; display: flex; flex-direction: column; justify-content: center; align-items: ${alignment}; flex-wrap: wrap;">
-    <div style="padding:2em;display:flex;">
-    <img style="height:100px;padding-right:1em;" src="https://www.litmos.com/wp-content/uploads/2022/12/cta-banner-optim.png">    
-    <div style="display:flex;flex-direction:column">
-    <h1 style="color: ${fontColor}; font-size: ${fontSize}px; font-family: 'Public Sans', sans-serif; font-weight:700;margin:0;">${text}</h1>
-    <p style="color: ${fontColor}; font-size: ${fontSize2}px; font-family: 'Public Sans', sans-serif; font-weight:300;margin:0;">${text2}</p></div>
-    </div>
-    </div>
-    <div class="boxes" style="display: flex; background:white; gap:1em; margin:1em 0;">
-    <div style="width:50%;padding: 2em; background-color:${fontColor3};">
-    <div style="display: flex; flex-direction: row; justify-content: flex-start; align-items: flex-start; color:${fontColor2};">
-    <div style="padding-right:1em">
-      <i style="color:${fontColor2};" class="fa fa-5x ${box1img}"></i>
-      </div>
-      <div>
-        <h4 style="color:${fontColor2}; font-family: 'Public Sans', sans-serif; font-weight:700;" class="mt-0">${box1headline}</h5>
-        <p style="color:${fontColor2}; font-family: 'Public Sans', sans-serif; font-weight:300;margin:0;">${box1text}</p>
+    const code = `<style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&display=swap');
+  
+    .banner {
+      position: relative;
+      background-image: url('${imageUrl}');
+      background-size: cover;
+      background-position: center;
+      height: 400px;
+    }
+  
+    .banner-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.4);
+    }
+  
+    .banner-content {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      height: 100%;
+      padding: 20px;
+    }
+  
+    .banner-image {
+      max-height: 200px;
+      margin-right: 20px;
+    }
+  
+    .banner-text h1,
+    .banner-text p {
+      font-family: 'Poppins', sans-serif;
+      color: ${fontColor};
+      margin: 0;
+      text-shadow: 2px 4px 3px rgba(0, 0, 0, .3);
+    }
+  
+    .banner-text h1 {
+      font-size: ${fontSize}px;
+    }
+  
+    .banner-text p {
+      font-size: ${fontSize2}px;
+    }
+  
+    .banner-boxes {
+      display: flex;
+      justify-content: center;
+      gap: 1em;
+      padding: 1em 0;
+      background: white;
+    }
+  
+    .banner-boxes>div {
+      background: ${fontColor3};
+      padding: 2em;
+      width: 100%;
+    }
+  
+    .banner-boxes div i {
+      color: ${fontColor2};
+      padding-right: 0.5em;
+    }
+  
+    .banner-boxes div h3,
+    .banner-boxes div p {
+      color: ${fontColor2};
+      margin: 0.3em;
+    }
+  
+    .banner-boxes div .btn-sm {
+      background:${fontColor2};
+      color: #4723a3;
+      border: none;
+    }
+  
+    /* Mobile devices */
+    @media (max-width: 767px) {
+      .banner {
+        height: 250px;
+      }
+  
+      .banner-text h1 {
+        font-size: 30px;
+      }
+  
+      .banner-text p {
+        font-size: 14px;
+      }
+  
+      .banner,
+      .banner-boxes {
+        flex-wrap: wrap;
+      }
+    }
+  </style>
+  
+  <div class="banner">
+    <div class="banner-overlay"></div>
+    <div class="banner-content">
+      <img src="https://www.litmos.com/wp-content/uploads/2022/12/cta-banner-optim.png" alt="Your image description"
+        class="banner-image img-responsive hidden-sm hidden-xs">
+      <div class="banner-text">
+        <h1>${text}</h1>
+        <p>${text2}</p>
       </div>
     </div>
   </div>
-  <div style="width:50%; padding: 2em; background-color:${fontColor3};">
-  <div style="display: flex; flex-direction: row; justify-content: flex-start; align-items: flex-start; color:${fontColor2};">
-  <div style="padding-right:1em">
-    <i style="color:${fontColor2};" class="fa fa-5x ${box2img}"></i>
-      </div>
+  
+  <div class="banner-boxes">
+    <div>
+      <!-- BANNER BOX 1 ICON -->
+      <i class="fas ${box1img} fa-5x pull-left"></i>
       <div>
-        <h4 class="mt-0" style="color:${fontColor2};font-family: 'Public Sans', sans-serif; font-weight:700;">${box2headline}</h5>
-        <p style="color:${fontColor2};font-family: 'Public Sans', sans-serif; font-weight:300;margin:0;">${box2text}</p>
+        <!-- BANNER BOX 1 HEADER -->
+        <h3>${box1headline}</h3>
+        <!-- BANNER BOX 1 SUBHEADER -->
+        <p>${box1text}</p>
+        <!-- BANNER BOX 1 BUTTON -->
+        <a class="btn btn-sm btn-secondary" href="/courses/event/LearnerSession">Learn More</a>
       </div>
     </div>
-  </div>
-</div>`
+    <div>
+      <!-- BANNER BOX 2 ICON -->
+      <i class="fas ${box2img} fa-5x pull-left"></i>
+      <div>
+        <!-- BANNER BOX 2 SUBHEADER -->
+        <h3>${box2headline}</h3>
+        <!-- BANNER BOX 2 HEADER -->
+        <p>${box2text}</p>
+        <!-- BANNER BOX 2 BUTTON -->
+        <a class="btn btn-sm btn-secondary" href="/achievements">Learn More</a>
+      </div>
+    </div>
+  </div>`
     setPreviewCode(code);
   };  
 
@@ -90,47 +196,153 @@ const BannerForm = () => {
     generatePreviewCode();
     const {imageUrl, fontColor, fontColor2, fontColor3, fontSize, fontSize2, text, text2,  box1img, box1headline, box1text, box2img, box2headline, box2text, alignment} = formData;
     setCodeSnippet(
-      `<link rel="preconnect" href="https://fonts.googleapis.com">
-      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-      <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;700&display=swap" rel="stylesheet"><div class="banner" style="background-image: url(${imageUrl}); background-size: cover; background-position: center center; height: 400px; display: flex; flex-direction: column; justify-content: center; align-items: ${alignment}; flex-wrap: wrap;">
-      <div style="padding:4em;display:flex;">
-      <img style="height:100px;" src="https://www.litmos.com/wp-content/uploads/2022/12/cta-banner-optim.png">    
-      <div style="display:flex;flex-direction:column">
-      <h1 style="color: ${fontColor}; font-size: ${fontSize}px; font-family: 'Public Sans', sans-serif; font-weight:700;margin:0;">${text}</h1>
-      <p style="color: ${fontColor}; font-size: ${fontSize2}px; font-family: 'Public Sans', sans-serif; font-weight:300;margin:0;">${text2}</p></div>
-      </div>
-      </div>
-      <div class="boxes" style="display: flex; background:white; gap:1em; margin:1em 0;">
-      <div style="width:50%;padding: 2em; background-color:${fontColor3};">
-      <div style="display: flex; flex-direction: row; justify-content: flex-start; align-items: flex-start; color:${fontColor2};">
-      <div style="padding-right:1em">
-        <i style="color:${fontColor2};" class="fa fa-5x ${box1img}"></i>
-        </div>
-        <div>
-          <h4 style="color:${fontColor2}; font-family: 'Public Sans', sans-serif; font-weight:700;" class="mt-0">${box1headline}</h5>
-          <p style="color:${fontColor2}; font-family: 'Public Sans', sans-serif; font-weight:300;margin:0;">${box1text}</p>
+      `<style>
+      @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&display=swap');
+    
+      .banner {
+        position: relative;
+        background-image: url('${imageUrl}');
+        background-size: cover;
+        background-position: center;
+        height: 400px;
+      }
+    
+      .banner-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.4);
+      }
+    
+      .banner-content {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        align-items: center;
+        height: 100%;
+        padding: 20px;
+      }
+    
+      .banner-image {
+        max-height: 200px;
+        margin-right: 20px;
+      }
+    
+      .banner-text h1,
+      .banner-text p {
+        font-family: 'Poppins', sans-serif;
+        color: ${fontColor};
+        margin: 0;
+        text-shadow: 2px 4px 3px rgba(0, 0, 0, .3);
+      }
+    
+      .banner-text h1 {
+        font-size: ${fontSize}px;
+      }
+    
+      .banner-text p {
+        font-size: ${fontSize2}px;
+      }
+    
+      .banner-boxes {
+        display: flex;
+        justify-content: center;
+        gap: 1em;
+        padding: 1em 0;
+        background: white;
+      }
+    
+      .banner-boxes>div {
+        background: ${fontColor3};
+        padding: 2em;
+        width: 100%;
+      }
+    
+      .banner-boxes div i {
+        color: ${fontColor2};
+        padding-right: 0.5em;
+      }
+    
+      .banner-boxes div h3,
+      .banner-boxes div p {
+        color: ${fontColor2};
+        margin: 0.3em;
+      }
+    
+      .banner-boxes div .btn-sm {
+        background:${fontColor2};
+        color: #4723a3;
+        border: none;
+      }
+    
+      /* Mobile devices */
+      @media (max-width: 767px) {
+        .banner {
+          height: 250px;
+        }
+    
+        .banner-text h1 {
+          font-size: 30px;
+        }
+    
+        .banner-text p {
+          font-size: 14px;
+        }
+    
+        .banner,
+        .banner-boxes {
+          flex-wrap: wrap;
+        }
+      }
+    </style>
+    
+    <div class="banner">
+      <div class="banner-overlay"></div>
+      <div class="banner-content">
+        <img src="https://www.litmos.com/wp-content/uploads/2022/12/cta-banner-optim.png" alt="Your image description"
+          class="banner-image img-responsive hidden-sm hidden-xs">
+        <div class="banner-text">
+          <h1>${text}</h1>
+          <p>${text2}</p>
         </div>
       </div>
     </div>
-    <div style="width:50%; padding: 2em; background-color:${fontColor3};">
-    <div style="display: flex; flex-direction: row; justify-content: flex-start; align-items: flex-start; color:${fontColor2};">
-    <div style="padding-right:1em">
-      <i style="color:${fontColor2};" class="fa fa-5x ${box2img}"></i>
-        </div>
+    
+    <div class="banner-boxes">
+      <div>
+        <!-- BANNER BOX 1 ICON -->
+        <i class="fas ${box1img} fa-5x pull-left"></i>
         <div>
-          <h4 class="mt-0" style="color:${fontColor2};font-family: 'Public Sans', sans-serif; font-weight:700;">${box2headline}</h5>
-          <p style="color:${fontColor2};font-family: 'Public Sans', sans-serif; font-weight:300;margin:0;">${box2text}</p>
+          <!-- BANNER BOX 1 HEADER -->
+          <h3>${box1headline}</h3>
+          <!-- BANNER BOX 1 SUBHEADER -->
+          <p>${box1text}</p>
+          <!-- BANNER BOX 1 BUTTON -->
+          <a class="btn btn-sm btn-secondary" href="/courses/event/LearnerSession">Learn More</a>
         </div>
       </div>
-    </div>
-  </div>`
+      <div>
+        <!-- BANNER BOX 2 ICON -->
+        <i class="fas ${box2img} fa-5x pull-left"></i>
+        <div>
+          <!-- BANNER BOX 2 SUBHEADER -->
+          <h3>${box2headline}</h3>
+          <!-- BANNER BOX 2 HEADER -->
+          <p>${box2text}</p>
+          <!-- BANNER BOX 2 BUTTON -->
+          <a class="btn btn-sm btn-secondary" href="/achievements">Learn More</a>
+        </div>
+      </div>
+    </div>`
     );
   };
   
 
   return (
     <div className="container my-4">
-      <h1 class="display-1">Banner Tool</h1>
+      <h1 className="display-1">Banner Tool</h1>
       <hr />
       <form onSubmit={handleSubmit} className="row">
       <h3>Banner Styles</h3>
@@ -140,7 +352,6 @@ const BannerForm = () => {
     <input
       type="text"
       name="imageUrl"
-      defaultValue="My default value"
       value={formData.imageUrl}
       onChange={handleChange}
       className="form-control"
@@ -224,7 +435,7 @@ const BannerForm = () => {
       className="form-control"
       id="box1img"
     />
-    <div id="emailHelp" class="form-text">Icon choices at <a target="blank" href="https://fontawesome.com/v5/search">FontAwesome</a></div>
+    <div id="emailHelp" className="form-text">Icon choices at <a target="blank" href="https://fontawesome.com/v5/search">FontAwesome</a></div>
   </div>  
   <div className="mb-4">
     <label htmlFor="text">Box 1 Headline:</label>
@@ -263,7 +474,7 @@ const BannerForm = () => {
       className="form-control"
       id="box2img"
     />
-     <div id="emailHelp" class="form-text">Icon choices at <a target="blank" href="https://fontawesome.com/v5/search">FontAwesome</a></div>
+     <div id="emailHelp" className="form-text">Icon choices at <a target="blank" href="https://fontawesome.com/v5/search">FontAwesome</a></div>
   </div>  
   <div className="mb-4">
     <label htmlFor="text">Box 2 Headline:</label>

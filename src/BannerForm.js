@@ -381,7 +381,6 @@ const BannerForm = () => {
     <div className="container my-4">
       <h1 className="display-1">Banner Tool</h1>
       <hr />
-      <a target="blank" href="https://litmoscorp.sharepoint.com/:v:/s/GlobalPresales/EZjxRGq4vvFDg7MGlzO_5nABXlOD3541YCiuBYwooWLTFw?e=bbC6T4" className="text-blue-600">How to use this tool</a>
       <form onSubmit={handleSubmit} className="row">
         <h3>Banner Styles</h3>
         <div className="col-md-4">
